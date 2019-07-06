@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wassistant/models/counter.dart';
+import 'package:wassistant/store/counter.dart';
+import 'package:wassistant/store/page.dart';
+import 'package:wassistant/widgets/bottom_navigation.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,7 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
-          ChangeNotifierProvider(builder: (_) => Counter()),
+          ChangeNotifierProvider<Counter>(builder: (_) => Counter()),
+          ChangeNotifierProvider<Page>(builder: (_) => Page()),
         ],
         child: Consumer<Counter>(
           builder: (_, __, ___) => MaterialApp(
@@ -54,6 +57,7 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigation(),
       floatingActionButton: FloatingActionButton(
         onPressed: _counter.increment,
         tooltip: 'Increment',
