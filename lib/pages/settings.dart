@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-/// Player page
-class PlayerPage extends StatelessWidget {
+/// Settings page
+class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Player page',
+              'Settings page',
               style: Theme.of(context).textTheme.display1,
             ),
           ],

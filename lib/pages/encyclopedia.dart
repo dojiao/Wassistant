@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-/// Player page
-class PlayerPage extends StatelessWidget {
+/// Encyclopedia page
+class EncyclopediaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Player page',
+              'Encyclopedia page',
               style: Theme.of(context).textTheme.display1,
             ),
           ],

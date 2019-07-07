@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wassistant/pages/encyclopedia.dart';
 import 'package:wassistant/pages/player.dart';
-import 'package:wassistant/store/counter.dart';
+import 'package:wassistant/pages/settings.dart';
 import 'package:wassistant/store/page.dart';
 import 'package:wassistant/widgets/bottom_navigation.dart';
 
@@ -13,17 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(
         providers: [
-          ChangeNotifierProvider<Counter>(builder: (_) => Counter()),
           ChangeNotifierProvider<Page>(builder: (_) => Page()),
         ],
-        child: Consumer<Counter>(
-          builder: (_, __, ___) => MaterialApp(
-                title: 'Flutter Demo',
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                ),
-                home: MyHomePage(title: 'Flutter Demo Home Page'),
-              ),
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: MyHomePage(title: 'Flutter Demo Home Page'),
         ),
       );
 }
@@ -38,9 +36,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get count number from provider
-    final _counter = Provider.of<Counter>(context);
-
     // Get page index from provider
     final _page = Provider.of<Page>(context);
 
@@ -56,17 +51,12 @@ class MyHomePage extends StatelessWidget {
         controller: _pageController,
         children: <Widget>[
           PlayerPage(),
-          PlayerPage(),
-          PlayerPage(),
+          EncyclopediaPage(),
+          SettingsPage(),
         ],
         onPageChanged: _page.change,
       ),
       bottomNavigationBar: BottomNavigation(key, _pageController),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _counter.increment,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
     );
   }
 }
