@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wassistant/pages/player.dart';
 import 'package:wassistant/store/counter.dart';
 import 'package:wassistant/store/page.dart';
 import 'package:wassistant/widgets/bottom_navigation.dart';
@@ -40,24 +41,27 @@ class MyHomePage extends StatelessWidget {
     // Get count number from provider
     final _counter = Provider.of<Counter>(context);
 
+    // Get page index from provider
+    final _page = Provider.of<Page>(context);
+
+    // Instance of PageController
+    final _pageController = PageController(initialPage: 0);
+
     // Returns scaffold widget
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('You have pushed the button this many times:'),
-            Text(
-              '${_counter.count}',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
+      body: PageView(
+        controller: _pageController,
+        children: <Widget>[
+          PlayerPage(),
+          PlayerPage(),
+          PlayerPage(),
+        ],
+        onPageChanged: _page.change,
       ),
-      bottomNavigationBar: BottomNavigation(),
+      bottomNavigationBar: BottomNavigation(key, _pageController),
       floatingActionButton: FloatingActionButton(
         onPressed: _counter.increment,
         tooltip: 'Increment',
