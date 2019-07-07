@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wassistant/pages/encyclopedia.dart';
-import 'package:wassistant/pages/player.dart';
-import 'package:wassistant/pages/settings.dart';
+import 'package:wassistant/pages/index/encyclopedia.dart';
+import 'package:wassistant/pages/index/player.dart';
+import 'package:wassistant/pages/index/settings.dart';
 import 'package:wassistant/store/page.dart';
 import 'package:wassistant/widgets/bottom_navigation.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Wassistant());
 
 /// Main class
-class MyApp extends StatelessWidget {
+class Wassistant extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) => MultiProvider(
@@ -17,23 +17,17 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<Page>(builder: (_) => Page()),
         ],
         child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Wassistant',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: MyHomePage(title: 'Flutter Demo Home Page'),
+          home: _HomePage(),
         ),
       );
 }
 
 /// Home page design declaration
-class MyHomePage extends StatelessWidget {
-  /// Constructor
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  /// Title text
-  final String title;
-
+class _HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get page index from provider
@@ -45,7 +39,7 @@ class MyHomePage extends StatelessWidget {
     // Returns scaffold widget
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Player'),
       ),
       body: PageView(
         controller: _pageController,

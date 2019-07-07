@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wassistant/pages/profile.dart';
 
 /// Player page
 class PlayerPage extends StatelessWidget {
@@ -10,6 +11,14 @@ class PlayerPage extends StatelessWidget {
             Text(
               'Player page',
               style: Theme.of(context).textTheme.display1,
+            ),
+            RaisedButton(
+              child: Text('Profile'),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => ProfilePage()),
+                );
+              },
             ),
           ],
         ),
