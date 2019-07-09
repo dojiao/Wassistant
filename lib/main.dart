@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wassistant/pages/index/encyclopedia.dart';
-import 'package:wassistant/pages/index/player.dart';
-import 'package:wassistant/pages/index/settings.dart';
 import 'package:wassistant/store/page.dart';
 import 'package:wassistant/widgets/bottom_navigation.dart';
 
@@ -39,15 +36,11 @@ class _HomePage extends StatelessWidget {
     // Returns scaffold widget
     return Scaffold(
       appBar: AppBar(
-        title: Text('Player'),
+        title: Text(_page.title),
       ),
       body: PageView(
         controller: _pageController,
-        children: <Widget>[
-          PlayerPage(),
-          EncyclopediaPage(),
-          SettingsPage(),
-        ],
+        children: _page.pages,
         onPageChanged: _page.change,
       ),
       bottomNavigationBar: BottomNavigation(key, _pageController),

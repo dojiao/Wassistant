@@ -13,25 +13,25 @@ class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Consumer<Page>(
         builder: (_, page, ___) => BottomNavigationBar(
-              currentIndex: page.index,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  title: Text('Player'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.book),
-                  title: Text('Encyclopedia'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  title: Text('Settings'),
-                ),
-              ],
-              onTap: (int index) {
-                _pageController.jumpToPage(index);
-                page.change(index);
-              },
+          currentIndex: page.currentIndex,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              title: Text('Player'),
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              title: Text('Encyclopedia'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+          ],
+          onTap: (int index) {
+            _pageController.jumpToPage(index);
+            page.change(index);
+          },
+        ),
       );
 }
