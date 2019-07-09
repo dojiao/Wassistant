@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wassistant/pages/index/encyclopedia.dart';
-import 'package:wassistant/pages/index/player.dart';
-import 'package:wassistant/pages/index/settings.dart';
+
+import '../pages/index/encyclopedia.dart';
+import '../pages/index/player.dart';
+import '../pages/index/settings.dart';
 
 /// Page status
 class Page with ChangeNotifier {

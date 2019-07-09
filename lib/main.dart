@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wassistant/store/page.dart';
-import 'package:wassistant/widgets/bottom_navigation.dart';
+
+import 'store/page.dart';
+import 'widgets/bottom_navigation.dart';
 
 void main() => runApp(Wassistant());
 
