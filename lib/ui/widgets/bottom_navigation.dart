@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wassistant/store/page.dart';
+
+import '../../core/view_model/page_model.dart';
 
 /// Bottom navigation bar
 class BottomNavigation extends StatelessWidget {
@@ -11,7 +12,7 @@ class BottomNavigation extends StatelessWidget {
   final PageController _pageController;
 
   @override
-  Widget build(BuildContext context) => Consumer<Page>(
+  Widget build(BuildContext context) => Consumer<PageModel>(
         builder: (_, page, ___) => BottomNavigationBar(
           currentIndex: page.currentIndex,
           items: [

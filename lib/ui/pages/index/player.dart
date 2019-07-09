@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wassistant/pages/profile.dart';
+
+import '../../pages/profile.dart';
 
 /// Player page
 class PlayerPage extends StatelessWidget {
