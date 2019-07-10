@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// Profile page
-class ProfilePage extends StatelessWidget {
+/// Profile view
+class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(

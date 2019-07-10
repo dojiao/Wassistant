@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'core/constants/route_paths.dart';
 import 'locator.dart';
-import 'ui/views/home_view/index.dart';
+import 'ui/router.dart';
 
 void main() {
   setupLocator();
@@ -17,6 +18,7 @@ class Wassistant extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: HomeView(),
+        initialRoute: RoutePaths.home,
+        onGenerateRoute: Router.generateRoute,
       );
 }

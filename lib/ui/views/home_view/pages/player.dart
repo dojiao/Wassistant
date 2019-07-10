@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../profile_view/index.dart';
-
 /// Player page
 class PlayerPage extends StatelessWidget {
   @override
@@ -16,9 +14,7 @@ class PlayerPage extends StatelessWidget {
             RaisedButton(
               child: Text('Profile'),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => ProfilePage()),
-                );
+                Navigator.pushNamed(context, 'profile');
               },
             ),
           ],
