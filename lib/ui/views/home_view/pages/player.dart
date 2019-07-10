@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wassistant/pages/profile.dart';
 
 /// Player page
 class PlayerPage extends StatelessWidget {
@@ -15,9 +14,7 @@ class PlayerPage extends StatelessWidget {
             RaisedButton(
               child: Text('Profile'),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => ProfilePage()),
-                );
+                Navigator.pushNamed(context, 'profile');
               },
             ),
           ],
