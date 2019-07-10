@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../ui/pages/index/encyclopedia.dart';
-import '../../ui/pages/index/player.dart';
-import '../../ui/pages/index/settings.dart';
-
 /// Page status
 class PageModel with ChangeNotifier {
   var _currentIndex = 0;
   var _title = 'Player';
-
-  /// Page list
-  List<Widget> get pages => [
-        PlayerPage(),
-        EncyclopediaPage(),
-        SettingsPage(),
-      ];
 
   /// Current page index
   int get currentIndex => _currentIndex;
