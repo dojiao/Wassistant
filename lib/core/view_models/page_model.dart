@@ -11,7 +11,7 @@ class PageModel with ChangeNotifier {
   /// Page title
   String get title => _title;
 
-  /// Change page index
+  /// Changes page index
   void change(int index) {
     // change index
     _currentIndex = index;

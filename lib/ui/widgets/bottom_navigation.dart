@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/view_model/page_model.dart';
+import '../../core/view_models/page_model.dart';
 
 /// Bottom navigation bar
 class BottomNavigation extends StatelessWidget {

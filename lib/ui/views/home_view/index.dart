@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/view_model/page_model.dart';
+import '../../../core/view_models/page_model.dart';
 import '../../../locator.dart';
 import '../../widgets/bottom_navigation.dart';
+import '../../widgets/search_app_bar.dart';
 import 'pages/encyclopedia.dart';
 import 'pages/player.dart';
 import 'pages/settings.dart';
@@ -20,9 +21,7 @@ class HomeView extends StatelessWidget {
       builder: (_) => locator<PageModel>(),
       child: Consumer<PageModel>(
         builder: (_, pageModel, __) => Scaffold(
-          appBar: AppBar(
-            title: Text(pageModel.title),
-          ),
+          appBar: SearchAppBar(key, pageModel.title),
           body: PageView(
             controller: _pageController,
             children: [
