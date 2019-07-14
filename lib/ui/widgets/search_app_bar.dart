@@ -46,7 +46,56 @@ class _PlayerSearchDelegate extends SearchDelegate {
   _PlayerSearchDelegate(this.histories);
 
   @override
-  Widget buildSuggestions(BuildContext context) => Container();
+  Widget buildSuggestions(BuildContext context) {
+    // if query is empty
+    if (query.isEmpty) {
+      // returns a empty widget
+      return Container();
+    }
+
+    // otherwise returns a ListView contains two item
+    return ListView(
+      padding: EdgeInsets.all(8.0),
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.grey,
+                width: 0.5,
+              ),
+            ),
+          ),
+          child: ListTile(
+            leading: Icon(Icons.person_outline),
+            title: Text(query),
+            trailing: Text('Players'),
+            onTap: () {
+              print('Search players');
+            },
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.grey,
+                width: 0.5,
+              ),
+            ),
+          ),
+          child: ListTile(
+            leading: Icon(Icons.outlined_flag),
+            title: Text(query),
+            trailing: Text('Clans'),
+            onTap: () {
+              print('Search clans');
+            },
+          ),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget buildResults(BuildContext context) => Container();
@@ -54,17 +103,14 @@ class _PlayerSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) => IconButton(
         icon: Icon(Icons.arrow_back),
-        onPressed: () => close(context, null),
+        onPressed: () => close(context, null), // close search page
       );
 
   @override
   List<Widget> buildActions(BuildContext context) => <Widget>[
         IconButton(
           icon: Icon(Icons.clear),
-          onPressed: () {
-            // Clear the typed search string
-            query = '';
-          },
+          onPressed: () => (query = ''), // clear the typed search query string
         ),
       ];
 }
