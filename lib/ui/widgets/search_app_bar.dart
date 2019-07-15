@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/view_models/widgets/search_histories_model.dart';
+import '../../core/view_models/widgets/search_model.dart';
 import '../../locator.dart';
 
 /// AppBar with a search button
@@ -16,19 +16,19 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
   @override
-  Widget build(BuildContext context) =>
-      ChangeNotifierProvider<SearchHistoriesModel>(
-        builder: (_) => locator<SearchHistoriesModel>(),
-        child: Consumer<SearchHistoriesModel>(
-          builder: (_, model, __) => AppBar(
+  Widget build(BuildContext context) => ChangeNotifierProvider<SearchModel>(
+        builder: (_) => locator<SearchModel>(),
+        child: Consumer<SearchModel>(
+          builder: (_, search, ___) => AppBar(
             title: Text(title),
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
                   showSearch(
-                      context: context,
-                      delegate: _PlayerSearchDelegate(model.histories));
+                    context: context,
+                    delegate: _PlayerSearchDelegate(search),
+                  );
                 },
               ),
             ],
@@ -39,18 +39,24 @@ class SearchAppBar extends StatelessWidget with PreferredSizeWidget {
 
 /// SearchDelegate for searching player data
 class _PlayerSearchDelegate extends SearchDelegate {
-  /// List of search histories
-  final List<String> histories;
+  final SearchModel _search;
 
   /// Constructor
-  _PlayerSearchDelegate(this.histories);
+  _PlayerSearchDelegate(this._search);
 
   @override
   Widget buildSuggestions(BuildContext context) {
     // if query is empty
     if (query.isEmpty) {
       // returns a empty widget
-      return Container();
+      return ListView.builder(
+        itemCount: _search.histories.length,
+        itemBuilder: (_, index) => ListTile(
+          leading: Icon(Icons.history),
+          title: Text(_search.histories[index]),
+          onTap: () => print('Search history'),
+        ),
+      );
     }
 
     // otherwise returns a ListView contains two item
@@ -70,9 +76,7 @@ class _PlayerSearchDelegate extends SearchDelegate {
             leading: Icon(Icons.person_outline),
             title: Text(query),
             trailing: Text('Players'),
-            onTap: () {
-              print('Search players');
-            },
+            onTap: () => showResults(context),
           ),
         ),
         Container(
