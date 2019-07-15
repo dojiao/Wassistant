@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-/// Page status
+/// Page state
 class PageModel with ChangeNotifier {
   var _currentIndex = 0;
   var _title = 'Player';

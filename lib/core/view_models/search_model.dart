@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../,,/../../locator.dart';
-import '../../models/player.dart';
-import '../../services/player_service.dart';
+import '../../locator.dart';
+import '../enums/view_state.dart';
+import '../models/player.dart';
+import '../services/player_service.dart';
+import 'base_model.dart';
 
-/// Status of search players and clans
-class SearchModel with ChangeNotifier {
+/// State of search players and clans
+class SearchModel extends BaseModel {
   /// List of player
   var _players = <Player>[];
 
@@ -14,7 +15,7 @@ class SearchModel with ChangeNotifier {
   var _histories = <String>[];
 
   /// Storage key
-  final _key = 'plyer_search_histories';
+  final _key = 'search_histories';
 
   /// Instance of player service class
   final _service = locator<PlayerService>();
@@ -27,9 +28,15 @@ class SearchModel with ChangeNotifier {
 
   /// Fetch players filtered by search string(user name)
   Future fetchPlayer(String search) async {
+    // change view state to busy
+    change(ViewState.busy);
+
     // fetch players
     var players = await _service.fetchPlayers(search);
     _players = players;
+
+    // change view state to idle
+    change(ViewState.idle);
 
     // send notice
     notifyListeners();

@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:wassistant/core/view_models/search_model.dart';
 
 import 'core/services/player_service.dart';
 import 'core/view_models/page_model.dart';
-import 'core/view_models/widgets/search_model.dart';
 
 /// Instance of locator
 GetIt locator = GetIt();

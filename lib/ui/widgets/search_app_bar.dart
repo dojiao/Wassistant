@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wassistant/core/view_models/search_model.dart';
 
-import '../../core/view_models/widgets/search_model.dart';
 import '../../locator.dart';
 
 /// AppBar with a search button
