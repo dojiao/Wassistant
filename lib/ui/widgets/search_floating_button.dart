@@ -1,5 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../core/constants/storage_keys.dart';
 
 /// Floating action button for searching
 class SearchFloatingButton extends StatelessWidget {
@@ -30,6 +35,14 @@ class SearchFloatingButton extends StatelessWidget {
 }
 
 class _PlayerSearchDelegate extends SearchDelegate {
+  /// Instance of locator
+  SharedPreferences _prefs;
+
+  // Constructor
+  _PlayerSearchDelegate() {
+    SharedPreferences.getInstance().then((prefs) => _prefs = prefs);
+  }
+
   @override
   Widget buildLeading(BuildContext context) => IconButton(
         icon: Icon(Icons.arrow_back),
@@ -40,13 +53,48 @@ class _PlayerSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) => <Widget>[
         IconButton(
           icon: Icon(Icons.clear),
-          onPressed: () => (query = ''), // clear the typed search query string
+          onPressed: () {
+            // clear typed text and show suggestions
+            query = '';
+            showSuggestions(context);
+          },
         ),
       ];
 
   @override
-  Widget buildSuggestions(BuildContext context) => Container();
+  Widget buildSuggestions(BuildContext context) {
+    // filter history list with query
+    List<String> _histories = _prefs.get(StorageKeys.playerHistory) ?? [];
+    _histories = _histories.where((value) => value.contains(query)).toList();
+    _histories = _histories.reversed.toList();
+
+    return Container(
+      child: ListView.builder(
+        itemCount: _histories.length,
+        itemBuilder: (_, index) => ListTile(
+          leading: Icon(Icons.history),
+          title: Text(_histories[index]),
+          trailing: Transform.rotate(
+            angle: -pi / 4,
+            child: Icon(Icons.arrow_upward),
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
-  Widget buildResults(BuildContext context) => Container();
+  Widget buildResults(BuildContext context) {
+    if (query.trim().isEmpty) {
+      return Container();
+    }
+
+    // add query to search history list
+    List<String> _histories = _prefs.get(StorageKeys.playerHistory) ?? [];
+    _histories.remove(query);
+    _histories.add(query);
+    _prefs.setStringList(StorageKeys.playerHistory, _histories);
+
+    return Container();
+  }
 }
