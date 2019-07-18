@@ -19,7 +19,10 @@ class PlayerService {
     // fetch players
     var response = await _dio.get(
       '/list/',
-      queryParameters: {'application_id': Keys.applicationId, 'search': search},
+      queryParameters: {
+        'application_id': Keys.applicationId,
+        'search': search,
+      },
     );
 
     // if status code is 200

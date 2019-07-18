@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../../core/view_models/page_model.dart';
 import '../../../locator.dart';
 import '../../widgets/bottom_navigation.dart';
-import '../../widgets/search_app_bar.dart';
 import '../../widgets/search_floating_button.dart';
 import 'pages/encyclopedia.dart';
 import 'pages/player.dart';
@@ -24,7 +23,7 @@ class HomeView extends StatelessWidget {
       ],
       child: Consumer<PageModel>(
         builder: (_, pageModel, __) => Scaffold(
-          appBar: SearchAppBar(key, pageModel.title),
+          appBar: AppBar(title: Text(pageModel.title)),
           body: PageView(
             controller: _pageController,
             children: [

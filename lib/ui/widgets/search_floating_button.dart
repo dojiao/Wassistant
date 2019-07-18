@@ -46,7 +46,7 @@ class _PlayerSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) => IconButton(
         icon: Icon(Icons.arrow_back),
-        onPressed: () => close(context, null), // close search page
+        onPressed: () => close(context, null),
       );
 
   @override
@@ -68,6 +68,7 @@ class _PlayerSearchDelegate extends SearchDelegate {
     _histories = _histories.where((value) => value.contains(query)).toList();
     _histories = _histories.reversed.toList();
 
+    // display history list
     return Container(
       child: ListView.builder(
         itemCount: _histories.length,
@@ -78,6 +79,11 @@ class _PlayerSearchDelegate extends SearchDelegate {
             angle: -pi / 4,
             child: Icon(Icons.arrow_upward),
           ),
+          onTap: () {
+            // set tapped text to query and do search
+            query = _histories[index];
+            showResults(context);
+          },
         ),
       ),
     );
