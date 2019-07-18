@@ -41,10 +41,13 @@ class PlayerService {
         // returns players
         return players;
       } else {
-        throw StatusCodeException(json['error']['code'] as int);
+        throw StatusCodeException(
+          json['error']['code'] as int,
+          json['error']['message'],
+        );
       }
     } else {
-      throw StatusCodeException(response.statusCode);
+      throw StatusCodeException(response.statusCode, response.statusMessage);
     }
   }
 }

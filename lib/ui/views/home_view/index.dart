@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/view_models/page_model.dart';
+import '../../../core/view_models/search_model.dart';
 import '../../../locator.dart';
 import '../../widgets/bottom_navigation.dart';
 import '../../widgets/search_floating_button.dart';
@@ -20,6 +21,7 @@ class HomeView extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: locator<PageModel>()),
+        ChangeNotifierProvider.value(value: locator<SearchModel>()),
       ],
       child: Consumer<PageModel>(
         builder: (_, pageModel, __) => Scaffold(
