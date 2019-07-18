@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
     // Returns scaffold widget with providers
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<PageModel>(builder: (_) => locator<PageModel>()),
+        ChangeNotifierProvider.value(value: locator<PageModel>()),
       ],
       child: Consumer<PageModel>(
         builder: (_, pageModel, __) => Scaffold(

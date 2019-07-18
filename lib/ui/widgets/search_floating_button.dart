@@ -25,10 +25,13 @@ class SearchFloatingButton extends StatelessWidget {
             child: Icon(
               Icons.person,
             ),
-            onTap: () => showSearch(
-              context: context,
-              delegate: _PlayerSearchDelegate(),
-            ),
+            onTap: () async {
+              var prefs = await SharedPreferences.getInstance();
+              await showSearch(
+                context: context,
+                delegate: _PlayerSearchDelegate(prefs),
+              );
+            },
           ),
         ],
       );
@@ -39,9 +42,7 @@ class _PlayerSearchDelegate extends SearchDelegate {
   SharedPreferences _prefs;
 
   // Constructor
-  _PlayerSearchDelegate() {
-    SharedPreferences.getInstance().then((prefs) => _prefs = prefs);
-  }
+  _PlayerSearchDelegate(this._prefs);
 
   @override
   Widget buildLeading(BuildContext context) => IconButton(
@@ -64,7 +65,7 @@ class _PlayerSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     // filter history list with query
-    List<String> _histories = _prefs.get(StorageKeys.playerHistory) ?? [];
+    var _histories = _prefs.getStringList(StorageKeys.playerHistory);
     _histories = _histories.where((value) => value.contains(query)).toList();
     _histories = _histories.reversed.toList();
 
@@ -96,7 +97,7 @@ class _PlayerSearchDelegate extends SearchDelegate {
     }
 
     // add query to search history list
-    List<String> _histories = _prefs.get(StorageKeys.playerHistory) ?? [];
+    var _histories = _prefs.getStringList(StorageKeys.playerHistory);
     _histories.remove(query);
     _histories.add(query);
     _prefs.setStringList(StorageKeys.playerHistory, _histories);
