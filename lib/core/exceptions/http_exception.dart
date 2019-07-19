@@ -10,7 +10,7 @@ class StatusCodeException implements Exception {
   StatusCodeException(this.statusCode, this.message);
 
   @override
-  String toString() => '$statusCode\n$message';
+  String toString() => '$statusCode: $message';
 }
 
 /// Network unreachable exception

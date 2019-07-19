@@ -128,75 +128,25 @@ class _PlayerSearchDelegate extends SearchDelegate {
         if (snapshot.hasError) {
           // TODO: Error handling
           // set default error message
-          var title = 'Oops!';
           var message = 'An error has occurred. '
-              '\nPlease try again, and if the problem continues, contact us.';
+              '\nTry this action again. '
+              'If the problem continues, please contact us.';
 
           // if it is the status code error
           var error = snapshot.error;
           if (error is StatusCodeException) {
             // replace to the specified message
-            title = error.statusCode.toString();
-            message = error.message;
+            message = error.toString();
           }
 
           // display error message
-          return Container(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          title,
-                          style: Theme.of(context).textTheme.title,
-                        )
-                      ]),
-                  SizedBox(height: 12.0),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          message,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.subtitle.copyWith(
-                                color: Colors.grey,
-                              ),
-                        )
-                      ]),
-                ],
-              ),
-            ),
-          );
+          return _errorView(context, message);
         }
 
         // if result is empty
         if (search.players.isEmpty) {
           // display no results message
-          return Container(
-            child: Center(
-              child: RichText(
-                text: TextSpan(
-                  style: Theme.of(context).textTheme.title.copyWith(
-                        color: Colors.grey,
-                      ),
-                  text: 'No results for ',
-                  children: [
-                    TextSpan(
-                      style: Theme.of(context).textTheme.title.copyWith(
-                            color: Colors.grey,
-                            fontStyle: FontStyle.italic,
-                          ),
-                      text: '"${query.trim()}"',
-                    ),
-                    TextSpan(text: '.'),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return _errorView(context, 'No results for "${query.trim()}".');
         }
 
         // otherwise, display results with
@@ -228,11 +178,9 @@ class _PlayerSearchDelegate extends SearchDelegate {
                 child: ListTile(
                   leading: Icon(Icons.person),
                   title: Text(search.players[index - 1].nickname),
-                  trailing: Text(
-                    '#$index',
-                    style: Theme.of(context).textTheme.caption.copyWith(
-                          color: Colors.grey,
-                        ),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    size: Theme.of(context).textTheme.subtitle.fontSize,
                   ),
                 ),
               );
@@ -242,4 +190,36 @@ class _PlayerSearchDelegate extends SearchDelegate {
       },
     );
   }
+
+  /// Returns a widget to display passed error message
+  Widget _errorView(BuildContext context, String message) => Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.error_outline,
+                  color: Colors.grey,
+                  size: 90.0,
+                ),
+              ],
+            ),
+            SizedBox(height: 12.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  message,
+                  style: Theme.of(context).textTheme.subhead.copyWith(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.normal,
+                      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
 }

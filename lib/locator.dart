@@ -9,7 +9,7 @@ GetIt locator = GetIt();
 
 /// Setup locator
 void setupLocator() {
-  locator.registerLazySingleton(() => PlayerService());
+  locator.registerFactory(() => PlayerService());
 
   locator.registerFactory(() => PageModel());
   locator.registerFactory(() => SearchModel());
