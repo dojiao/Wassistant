@@ -127,7 +127,7 @@ class _PlayerSearchDelegate extends SearchDelegate {
         // if some errors occurred, display the error message
         if (snapshot.hasError) {
           // TODO: Error handling
-          // default error message
+          // set default error message
           var title = 'Oops!';
           var message = 'An error has occurred. '
               '\nPlease try again, and if the problem continues, contact us.';

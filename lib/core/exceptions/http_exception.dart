@@ -10,5 +10,11 @@ class StatusCodeException implements Exception {
   StatusCodeException(this.statusCode, this.message);
 
   @override
-  String toString() => 'Status code';
+  String toString() => '$statusCode\n$message';
+}
+
+/// Network unreachable exception
+class NetworkException implements Exception {
+  @override
+  String toString() => 'Network is unreachable.';
 }
