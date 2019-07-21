@@ -18,3 +18,9 @@ class NetworkException implements Exception {
   @override
   String toString() => 'Network is unreachable.';
 }
+
+/// Unexpected exception
+class UnexpectedException implements Exception {
+  @override
+  String toString() => 'An error has occurred. ';
+}

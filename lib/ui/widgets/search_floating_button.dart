@@ -33,7 +33,7 @@ class SearchFloatingButton extends StatelessWidget {
                 var prefs = await SharedPreferences.getInstance();
                 await showSearch(
                   context: context,
-                  delegate: _PlayerSearchDelegate(prefs, search),
+                  delegate: _PlayerSearch(prefs, search),
                 );
               },
             ),
@@ -42,7 +42,7 @@ class SearchFloatingButton extends StatelessWidget {
       );
 }
 
-class _PlayerSearchDelegate extends SearchDelegate {
+class _PlayerSearch extends SearchDelegate {
   /// Instance of locator
   SharedPreferences _prefs;
 
@@ -50,7 +50,10 @@ class _PlayerSearchDelegate extends SearchDelegate {
   SearchModel search;
 
   // Constructor
-  _PlayerSearchDelegate(this._prefs, this.search);
+  _PlayerSearch(this._prefs, this.search);
+
+  @override
+  String get query => super.query.trim();
 
   @override
   Widget buildLeading(BuildContext context) => IconButton(
@@ -101,7 +104,7 @@ class _PlayerSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     // if query is empty
-    if (query.trim().isEmpty) {
+    if (query.isEmpty) {
       // returns an empty widget
       return Container();
     }
@@ -114,7 +117,7 @@ class _PlayerSearchDelegate extends SearchDelegate {
 
     // and display fetched players;
     return FutureBuilder(
-      future: search.fetchPlayers(query.trim()),
+      future: search.fetchPlayers(query),
       builder: (_, snapshot) {
         // if still waiting for response
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -126,65 +129,37 @@ class _PlayerSearchDelegate extends SearchDelegate {
 
         // if some errors occurred, display the error message
         if (snapshot.hasError) {
-          // TODO: Error handling
-          // set default error message
-          var message = 'An error has occurred. '
-              '\nTry this action again. '
-              'If the problem continues, please contact us.';
-
-          // if it is the status code error
+          // if it is the status code error or network error
           var error = snapshot.error;
-          if (error is StatusCodeException) {
-            // replace to the specified message
-            message = error.toString();
+          if (error is StatusCodeException || error is NetworkException) {
+            // display error message
+            return _errorView(context, error.toString());
           }
 
-          // display error message
-          return _errorView(context, message);
+          // otherwise regarded as the unexpected error
+          return _errorView(context, UnexpectedException().toString());
         }
 
         // if result is empty
         if (search.players.isEmpty) {
           // display no results message
-          return _errorView(context, 'No results for "${query.trim()}".');
+          return _errorView(context, 'No results for "$query".');
         }
 
         // otherwise, display results with
         return Container(
           child: ListView.builder(
-            itemCount: search.players.length + 1,
-            itemBuilder: (context, index) {
-              // display a title bar to show the total count
-              if (index == 0) {
-                return Container(
-                  padding: EdgeInsets.all(12.0),
-                  color: Theme.of(context).primaryColor,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Total: ${search.players.length}',
-                        style: Theme.of(context).textTheme.subtitle.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-
-              // and a list of players
-              return Container(
-                child: ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text(search.players[index - 1].nickname),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    size: Theme.of(context).textTheme.subtitle.fontSize,
-                  ),
+            itemCount: search.players.length,
+            itemBuilder: (context, index) => Container(
+              child: ListTile(
+                leading: Icon(Icons.person),
+                title: Text(search.players[index].nickname),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: Theme.of(context).textTheme.subtitle.fontSize,
                 ),
-              );
-            },
+              ),
+            ),
           ),
         );
       },
@@ -196,28 +171,28 @@ class _PlayerSearchDelegate extends SearchDelegate {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.error_outline,
-                  color: Colors.grey,
-                  size: 90.0,
-                ),
-              ],
+            Container(
+              child: Icon(
+                Icons.error_outline,
+                color: Colors.grey,
+                size: 90.0,
+              ),
             ),
-            SizedBox(height: 12.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  message,
-                  style: Theme.of(context).textTheme.subhead.copyWith(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.normal,
-                      ),
-                ),
-              ],
+            SizedBox(height: 16.0),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    message,
+                    softWrap: true,
+                    style: Theme.of(context).textTheme.subhead.copyWith(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.normal,
+                        ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
