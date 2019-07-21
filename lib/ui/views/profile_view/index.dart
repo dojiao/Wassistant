@@ -8,11 +8,7 @@ class ProfileView extends StatelessWidget {
           title: Text('Profile'),
         ),
         body: Center(
-          child: Column(
-            children: <Widget>[
-              Text('Profile page'),
-            ],
-          ),
+          child: Text('Profile page'),
         ),
       );
 }

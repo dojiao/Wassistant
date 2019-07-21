@@ -11,12 +11,6 @@ class PlayerPage extends StatelessWidget {
               'Player page',
               style: Theme.of(context).textTheme.display1,
             ),
-            RaisedButton(
-              child: Text('Profile'),
-              onPressed: () {
-                Navigator.pushNamed(context, 'profile');
-              },
-            ),
           ],
         ),
       );

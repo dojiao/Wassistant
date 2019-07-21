@@ -1,9 +1,9 @@
 /// Player model
 class Player {
-  /// Player nickname
+  /// Player name
   String nickname;
 
-  /// Player account id
+  /// User id
   int accountId;
 
   /// Constructor

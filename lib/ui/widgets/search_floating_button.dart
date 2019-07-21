@@ -76,24 +76,24 @@ class _PlayerSearch extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     // filter history list with query
-    var _histories = _prefs.getStringList(StorageKeys.playerHistory) ?? [];
-    _histories = _histories.where((value) => value.contains(query)).toList();
-    _histories = _histories.reversed.toList();
+    var histories = _prefs.getStringList(StorageKeys.playerHistory) ?? [];
+    histories = histories.where((value) => value.contains(query)).toList();
+    histories = histories.reversed.toList();
 
     // display history list
     return Container(
       child: ListView.builder(
-        itemCount: _histories.length,
+        itemCount: histories.length,
         itemBuilder: (_, index) => ListTile(
           leading: Icon(Icons.history),
-          title: Text(_histories[index]),
+          title: Text(histories[index]),
           trailing: Transform.rotate(
             angle: -pi / 4,
             child: Icon(Icons.arrow_upward),
           ),
           onTap: () {
             // set tapped text to query and do search
-            query = _histories[index];
+            query = histories[index];
             showResults(context);
           },
         ),
@@ -158,6 +158,7 @@ class _PlayerSearch extends SearchDelegate {
                   Icons.arrow_forward_ios,
                   size: Theme.of(context).textTheme.subtitle.fontSize,
                 ),
+                onTap: () => Navigator.pushNamed(context, 'profile'),
               ),
             ),
           ),
