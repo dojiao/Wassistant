@@ -1,8 +1,8 @@
 /// Route paths
 class RoutePaths {
   /// Path of home view
-  static const String home = '/';
+  static const home = '/';
 
   /// Path of profile view
-  static const String profile = 'profile';
+  static const profile = 'profile';
 }
