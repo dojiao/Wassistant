@@ -23,7 +23,6 @@ dependencies:
   connectivity: ^0.4.3+6
   cupertino_icons: ^0.1.2
   dio: ^2.1.13
-  flutter_speed_dial: ^1.2.1
   get_it: ^1.0.3+2
   provider: ^3.0.0+1
   shared_preferences: ^0.5.3+2

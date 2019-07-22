@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,31 +12,16 @@ import '../../core/view_models/search_model.dart';
 class SearchFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Consumer<SearchModel>(
-        builder: (_, search, __) => SpeedDial(
-          animatedIcon: AnimatedIcons.search_ellipsis,
-          tooltip: 'Search',
-          elevation: 3.0,
-          children: [
-            SpeedDialChild(
-              backgroundColor: Colors.red,
-              child: Icon(
-                Icons.flag,
-              ),
-            ),
-            SpeedDialChild(
-              backgroundColor: Colors.green,
-              child: Icon(
-                Icons.person,
-              ),
-              onTap: () async {
-                var prefs = await SharedPreferences.getInstance();
-                await showSearch(
-                  context: context,
-                  delegate: _PlayerSearch(prefs, search),
-                );
-              },
-            ),
-          ],
+        builder: (_, search, __) => FloatingActionButton(
+          elevation: 2.0,
+          child: Icon(Icons.search),
+          onPressed: () async {
+            var prefs = await SharedPreferences.getInstance();
+            await showSearch(
+              context: context,
+              delegate: _PlayerSearch(prefs, search),
+            );
+          },
         ),
       );
 }

@@ -20,5 +20,6 @@ class Wassistant extends StatelessWidget {
         ),
         initialRoute: RoutePaths.home,
         onGenerateRoute: Router.generateRoute,
+        debugShowCheckedModeBanner: false,
       );
 }

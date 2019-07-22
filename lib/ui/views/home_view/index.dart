@@ -1,44 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/view_models/page_model.dart';
 import '../../../core/view_models/search_model.dart';
 import '../../../locator.dart';
-import '../../widgets/bottom_navigation.dart';
+import '../../widgets/notched_bottom_navigation_bar.dart';
 import '../../widgets/search_floating_button.dart';
-import 'pages/encyclopedia.dart';
-import 'pages/player.dart';
-import 'pages/settings.dart';
+import 'pages/home_page.dart';
+import 'pages/settings_page.dart';
 
 /// Home view
 class HomeView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // Instance of PageController
-    final _pageController = PageController(initialPage: 0);
+  // Instance of PageController
+  final _pageController = PageController(initialPage: 0);
 
-    // Returns scaffold widget with providers
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(value: locator<PageModel>()),
-        ChangeNotifierProvider.value(value: locator<SearchModel>()),
-      ],
-      child: Consumer<PageModel>(
-        builder: (_, pageModel, __) => Scaffold(
-          appBar: AppBar(title: Text(pageModel.title)),
+  @override
+  Widget build(BuildContext context) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: locator<SearchModel>()),
+        ],
+        child: Scaffold(
           body: PageView(
             controller: _pageController,
+            physics: NeverScrollableScrollPhysics(),
             children: [
-              PlayerPage(),
-              EncyclopediaPage(),
+              HomePage(),
               SettingsPage(),
             ],
-            onPageChanged: pageModel.change,
           ),
-          bottomNavigationBar: BottomNavigation(key, _pageController),
+          bottomNavigationBar: NotchedBottomNavigationBar(_pageController),
           floatingActionButton: SearchFloatingButton(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
         ),
-      ),
-    );
-  }
+      );
 }
