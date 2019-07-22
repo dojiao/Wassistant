@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/constants/storage_keys.dart';
 import '../../core/exceptions/http_exception.dart';
 import '../../core/view_models/search_model.dart';
+import 'search_results_view.dart';
 
 /// Floating action button for searching
 class SearchFloatingButton extends StatelessWidget {
@@ -117,42 +118,27 @@ class _PlayerSearch extends SearchDelegate {
           var error = snapshot.error;
           if (error is StatusCodeException || error is NetworkException) {
             // display error message
-            return _errorView(context, error.toString());
+            return _showErrorView(context, error.toString());
           }
 
           // otherwise regarded as the unexpected error
-          return _errorView(context, UnexpectedException().toString());
+          return _showErrorView(context, UnexpectedException().toString());
         }
 
         // if result is empty
         if (search.players.isEmpty) {
           // display no results message
-          return _errorView(context, 'No results for "$query".');
+          return _showErrorView(context, 'No results for "$query".');
         }
 
-        // otherwise, display results with
-        return Container(
-          child: ListView.builder(
-            itemCount: search.players.length,
-            itemBuilder: (context, index) => Container(
-              child: ListTile(
-                leading: Icon(Icons.person),
-                title: Text(search.players[index].nickname),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: Theme.of(context).textTheme.subtitle.fontSize,
-                ),
-                onTap: () => Navigator.pushNamed(context, 'profile'),
-              ),
-            ),
-          ),
-        );
+        // otherwise, display results
+        return SearchResultsView(search);
       },
     );
   }
 
   /// Returns a widget to display passed error message
-  Widget _errorView(BuildContext context, String message) => Container(
+  Widget _showErrorView(BuildContext context, String message) => Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
