@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../core/mixins/convert_helper.dart';
 import '../../core/view_models/search_model.dart';
 
 /// Search results view
-class SearchResultsView extends StatelessWidget {
+class SearchResultsView extends StatelessWidget with ConvertHelper {
   final SearchModel _search;
 
   /// Returns a widget to display the search results
@@ -53,35 +54,115 @@ class SearchResultsView extends StatelessWidget {
   }
 
   /// Returns a list of tabs
-  List<Widget> _buildTabs(BuildContext context) => [
+  List<ListView> _buildTabs(BuildContext context) => [
         ListView.builder(
+          shrinkWrap: true,
           itemCount: _search.players.length,
           itemBuilder: (context, index) => Container(
-            child: ListTile(
-              leading: Icon(Icons.person),
-              title: Text(_search.players[index].nickname),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                size: Theme.of(context).textTheme.subtitle.fontSize,
+            child: Card(
+              elevation: 8.0,
+              margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              child: Container(
+                child: _buildPlayerListTile(context, index),
               ),
-              onTap: () => Navigator.pushNamed(context, 'profile'),
             ),
           ),
         ),
         ListView.builder(
+          shrinkWrap: true,
           itemCount: _search.clans.length,
           itemBuilder: (context, index) => Container(
-            child: ListTile(
-              leading: Icon(Icons.flag),
-              title: Text(_search.clans[index].tag),
-              subtitle: Text(_search.clans[index].name),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                size: Theme.of(context).textTheme.subtitle.fontSize,
+            child: Card(
+              elevation: 8.0,
+              margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              child: Container(
+                child: _buildClanListTile(context, index),
               ),
-              onTap: () => Navigator.pushNamed(context, 'profile'),
             ),
           ),
         ),
       ];
+
+  /// returns a card to display the player info
+  ListTile _buildPlayerListTile(BuildContext context, int index) {
+    final _textTheme = Theme.of(context).textTheme;
+
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 20.0,
+        vertical: 10.0,
+      ),
+      leading: Container(
+        padding: EdgeInsets.only(right: 12.0),
+        decoration: BoxDecoration(
+          border: Border(
+            right: BorderSide(width: 1.0, color: Colors.black26),
+          ),
+        ),
+        child: Icon(Icons.person),
+      ),
+      title: Text(
+        _search.players[index].nickname,
+        style: _textTheme.subhead.copyWith(fontWeight: FontWeight.w600),
+      ),
+      trailing: Icon(
+        Icons.keyboard_arrow_right,
+        size: _textTheme.headline.fontSize,
+      ),
+      onTap: () => Navigator.pushNamed(context, 'profile'),
+    );
+  }
+
+  /// returns a list tile to display the clan info
+  ListTile _buildClanListTile(BuildContext context, int index) {
+    final _textTheme = Theme.of(context).textTheme;
+
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 20.0,
+        vertical: 10.0,
+      ),
+      leading: Container(
+        margin: EdgeInsets.symmetric(vertical: 12.0),
+        padding: EdgeInsets.only(right: 12.0),
+        decoration: BoxDecoration(
+          border: Border(
+            right: BorderSide(width: 1.0, color: Colors.black26),
+          ),
+        ),
+        child: Icon(Icons.group),
+      ),
+      title: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 3,
+            child: Container(
+              child: Text(
+                _search.clans[index].tag,
+                style: _textTheme.subhead.copyWith(fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              stringFromDateTime(_search.clans[index].createdAt),
+              textAlign: TextAlign.end,
+              style: _textTheme.caption.copyWith(
+                color: Colors.black38,
+              ),
+            ),
+          )
+        ],
+      ),
+      subtitle: Container(
+        child: Text(_search.clans[index].name),
+      ),
+      trailing: Icon(
+        Icons.keyboard_arrow_right,
+        size: _textTheme.headline.fontSize,
+      ),
+      onTap: () => Navigator.pushNamed(context, 'profile'),
+    );
+  }
 }
