@@ -1,30 +1,48 @@
+import 'package:flutter/widgets.dart';
+
 import '../../locator.dart';
-import '../enums/view_state.dart';
+import '../models/clan.dart';
 import '../models/player.dart';
+import '../services/clan_service.dart';
 import '../services/player_service.dart';
-import 'base_model.dart';
 
 /// A layer contains players/clans searching logic
-class SearchModel extends BaseModel {
+class SearchModel extends ChangeNotifier {
+  /// List of clans
+  var _clans = <Clan>[];
+
   /// List of players
   var _players = <Player>[];
 
-  /// Instance of player service class
-  final _service = locator<PlayerService>();
+  /// Instance of clan service
+  final _clanService = locator<ClanService>();
+
+  /// Instance of player service
+  final _playerService = locator<PlayerService>();
+
+  /// List of clans
+  List<Clan> get clans => _clans;
 
   /// List of players
   List<Player> get players => _players;
 
   /// Fetch players with query string
-  Future fetchPlayers(String search) async {
-    // change view state to busy
-    changeState(ViewState.busy);
+  Future searchWith(String search) async {
+    // fetch clans and players
+    final results = await Future.wait([
+      _clanService.fetchClans(search, 1),
+      _playerService.fetchPlayers(search),
+    ]);
 
-    // fetch players
-    _players = await _service.fetchPlayers(search);
-
-    // change view state to idle
-    changeState(ViewState.idle);
+    // set property values
+    for (final obj in results) {
+      if (obj is List<Player>) {
+        _players = obj;
+      }
+      if (obj is List<Clan>) {
+        _clans = obj;
+      }
+    }
 
     // send notice
     notifyListeners();

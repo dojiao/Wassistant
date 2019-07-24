@@ -1,5 +1,7 @@
+import '../mixins/convert_helper.dart';
+
 /// Player model
-class Clan {
+class Clan with ConvertHelper {
   /// Clan id
   int clanId;
 
@@ -29,7 +31,7 @@ class Clan {
   /// Serializing JSON inside clan model
   Clan.fromJSON(Map<String, dynamic> json) {
     clanId = json['clan_id'];
-    createdAt = json['created_at'];
+    createdAt = dateTimeFromSeconds(json['created_at']);
     membersCount = json['members_count'];
     name = json['name'];
     tag = json['tag'];

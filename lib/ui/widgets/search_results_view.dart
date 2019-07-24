@@ -68,13 +68,13 @@ class SearchResultsView extends StatelessWidget {
             ),
           ),
         ),
-        // TODO: display clans
         ListView.builder(
-          itemCount: _search.players.length,
+          itemCount: _search.clans.length,
           itemBuilder: (context, index) => Container(
             child: ListTile(
-              leading: Icon(Icons.person),
-              title: Text(_search.players[index].nickname),
+              leading: Icon(Icons.flag),
+              title: Text(_search.clans[index].tag),
+              subtitle: Text(_search.clans[index].name),
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 size: Theme.of(context).textTheme.subtitle.fontSize,

@@ -102,7 +102,7 @@ class _PlayerSearch extends SearchDelegate {
 
     // and display fetched players;
     return FutureBuilder(
-      future: search.fetchPlayers(query),
+      future: search.searchWith(query),
       builder: (_, snapshot) {
         // if still waiting for response
         if (snapshot.connectionState == ConnectionState.waiting) {
