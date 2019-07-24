@@ -1,7 +1,7 @@
-import '../mixins/convert_helper.dart';
+import '../mixins/date_helper.dart';
 
 /// Player model
-class Clan with ConvertHelper {
+class Clan with DateHelper {
   /// Clan id
   int clanId;
 

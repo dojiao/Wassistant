@@ -18,7 +18,7 @@ class ClanService with HttpHelper {
       queryParameters: {
         'application_id': Keys.applicationId,
         'search': search,
-        'limit': 30,
+        'limit': 10,
         'page_no': pageNo,
       },
     );
