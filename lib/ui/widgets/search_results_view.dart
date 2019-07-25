@@ -131,9 +131,10 @@ class SearchResultsView extends StatelessWidget with DateHelper {
             child: Icon(Icons.group),
           ),
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Expanded(
-                flex: 3,
+              Flexible(
+                flex: 4,
                 child: Container(
                   child: Text(
                     _search.clans[index].tag,
@@ -143,7 +144,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
                   ),
                 ),
               ),
-              Expanded(
+              Flexible(
                 flex: 2,
                 child: Text(
                   formatDateTime(_search.clans[index].createdAt),
