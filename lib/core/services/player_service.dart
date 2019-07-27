@@ -1,12 +1,12 @@
 import '../constants/keys.secret.dart';
 import '../enums/api_type.dart';
-import '../exceptions/http_exception.dart';
+import '../mixins/http_helper.dart';
 import '../models/player.dart';
 import '../models/player_detail.dart';
 import 'api_wrapper.dart';
 
 /// Player service for networking requests
-class PlayerService {
+class PlayerService with HttpHelper {
   /// Instance of api wrapper
   final _apiWrapper = ApiWrapper(ApiType.player);
 
@@ -14,7 +14,7 @@ class PlayerService {
   Future<List<Player>> fetchPlayers(String search) async {
     var players = <Player>[];
     // fetch players
-    var response = await _apiWrapper.get(
+    final response = await _apiWrapper.get(
       '/list/',
       queryParameters: {
         'application_id': Keys.applicationId,
@@ -22,15 +22,12 @@ class PlayerService {
       },
     );
 
-    // convert response data to json object
-    var json = Map<String, dynamic>.from(response.data);
-
-    // validate the status of response
-    _validateStatus(json);
+    // convert response to json object with validations
+    final json = mappingWithValidation(response);
 
     // loop and convert each item to player model
     List<dynamic> parsedList = json['data'];
-    for (var player in parsedList) {
+    for (final player in parsedList) {
       players.add(Player.fromJSON(player));
     }
     return players;
@@ -39,7 +36,7 @@ class PlayerService {
   /// Returns player details by user id
   Future<PlayerDetail> fetchPlayerDetail(int accountId) async {
     // fetch players
-    var response = await _apiWrapper.get(
+    final response = await _apiWrapper.get(
       '/list/',
       queryParameters: {
         'application_id': Keys.applicationId,
@@ -48,24 +45,10 @@ class PlayerService {
       },
     );
 
-    // convert response data to json object
-    var json = Map<String, dynamic>.from(response.data);
-
-    // validate the status of response
-    _validateStatus(json);
+    // convert response to json object with validations
+    final json = mappingWithValidation(response);
 
     // convert json object to player detail model
     return PlayerDetail.fromJSON(json['data']);
-  }
-
-  /// Throws a status code exception
-  /// if the status field in response is not 'ok'
-  _validateStatus(Map<String, dynamic> response) {
-    if (response['status'] != 'ok') {
-      throw StatusCodeException(
-        response['error']['code'] as int,
-        response['error']['message'],
-      );
-    }
   }
 }
