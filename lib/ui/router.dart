@@ -8,11 +8,13 @@ import 'views/home_view/index.dart';
 class Router {
   /// Generate routes
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    final ViewArguments args = settings.arguments;
+
     switch (settings.name) {
       case RoutePaths.home:
         return MaterialPageRoute(builder: (_) => HomeView());
       case RoutePaths.clanDetail:
-        return MaterialPageRoute(builder: (_) => ClanDetailView());
+        return MaterialPageRoute(builder: (_) => ClanDetailView(args.clanId));
       default:
         return MaterialPageRoute(
             // TODO: Need error page?
@@ -23,4 +25,13 @@ class Router {
                 ));
     }
   }
+}
+
+/// The arguments of view
+class ViewArguments {
+  /// Clan id
+  final int clanId;
+
+  /// Returns a instance contains the arguments of views
+  ViewArguments({this.clanId});
 }
