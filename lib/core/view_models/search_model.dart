@@ -30,7 +30,7 @@ class SearchModel extends ChangeNotifier {
   Future searchWith(String search) async {
     // fetch clans and players
     final results = await Future.wait([
-      _clanService.fetchClans(search, 1),
+      _clanService.fetchClans(search),
       _playerService.fetchPlayers(search),
     ]);
 

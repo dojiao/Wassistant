@@ -9,8 +9,8 @@ class ClanService with HttpHelper {
   /// Instance of api wrapper
   final _apiWrapper = ApiWrapper(ApiType.clan);
 
-  /// Returns a paginated list of clan by search query and page no
-  Future<List<Clan>> fetchClans(String search, int pageNo) async {
+  /// Returns a paginated list of clan by search query
+  Future<List<Clan>> fetchClans(String search) async {
     var clans = <Clan>[];
     // fetch clans
     var response = await _apiWrapper.get(
@@ -18,8 +18,6 @@ class ClanService with HttpHelper {
       queryParameters: {
         'application_id': Keys.applicationId,
         'search': search,
-        'limit': 10,
-        'page_no': pageNo,
       },
     );
 
