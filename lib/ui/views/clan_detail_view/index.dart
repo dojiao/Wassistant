@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-/// Profile view
-class ProfileView extends StatelessWidget {
+/// Clan detail view
+class ClanDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('Profile'),
+          title: Text('Clan detail'),
         ),
         body: Center(
-          child: Text('Profile page'),
+          child: Text('Clan detail page'),
         ),
       );
 }

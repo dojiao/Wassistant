@@ -53,7 +53,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
     );
   }
 
-  /// Returns a list of tabs
+  /// Returns a list of widget that inside the tabs
   List<ListView> _buildTabs(BuildContext context) => [
         ListView.builder(
           shrinkWrap: true,
@@ -101,7 +101,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
             Icons.keyboard_arrow_right,
             size: _textTheme.headline.fontSize,
           ),
-          onTap: () => Navigator.pushNamed(context, 'profile'),
+          onTap: () => Navigator.pushNamed(context, 'player_data'),
         ),
       ),
     );
@@ -163,7 +163,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
             Icons.keyboard_arrow_right,
             size: _textTheme.headline.fontSize,
           ),
-          onTap: () => Navigator.pushNamed(context, 'profile'),
+          onTap: () => Navigator.pushNamed(context, 'clan_detail'),
         ),
       ),
     );

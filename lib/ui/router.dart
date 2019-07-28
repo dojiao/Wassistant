@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../core/constants/route_paths.dart';
+import 'views/clan_detail_view/index.dart';
 import 'views/home_view/index.dart';
-import 'views/profile_view/index.dart';
 
 /// Routing class
 class Router {
@@ -11,8 +11,8 @@ class Router {
     switch (settings.name) {
       case RoutePaths.home:
         return MaterialPageRoute(builder: (_) => HomeView());
-      case RoutePaths.profile:
-        return MaterialPageRoute(builder: (_) => ProfileView());
+      case RoutePaths.clanDetail:
+        return MaterialPageRoute(builder: (_) => ClanDetailView());
       default:
         return MaterialPageRoute(
             // TODO: Need error page?
