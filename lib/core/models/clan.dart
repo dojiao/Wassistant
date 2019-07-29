@@ -1,6 +1,6 @@
 import '../mixins/date_helper.dart';
 
-/// Player model
+/// Clan model
 class Clan with DateHelper {
   /// Clan id
   int clanId;
@@ -16,15 +16,6 @@ class Clan with DateHelper {
 
   /// Clan tag
   String tag;
-
-  /// Constructor
-  Clan(
-    this.clanId,
-    this.createdAt,
-    this.membersCount,
-    this.name,
-    this.tag,
-  );
 
   /// Constructor
 

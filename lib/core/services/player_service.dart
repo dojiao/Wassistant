@@ -2,7 +2,7 @@ import '../constants/keys.secret.dart';
 import '../enums/api_type.dart';
 import '../mixins/http_helper.dart';
 import '../models/player.dart';
-import '../models/player_detail.dart';
+import '../models/player_data.dart';
 import 'api_wrapper.dart';
 
 /// Player service for networking requests
@@ -12,7 +12,7 @@ class PlayerService with HttpHelper {
 
   /// Returns a partial list of players by search query
   Future<List<Player>> fetchPlayers(String search) async {
-    var players = <Player>[];
+    final players = <Player>[];
     // fetch players
     final response = await _apiWrapper.get(
       '/list/',
@@ -34,7 +34,7 @@ class PlayerService with HttpHelper {
   }
 
   /// Returns player details by user id
-  Future<PlayerDetail> fetchPlayerDetail(int accountId) async {
+  Future<PlayerData> fetchPlayerDetail(int accountId) async {
     // fetch players
     final response = await _apiWrapper.get(
       '/list/',
@@ -49,6 +49,6 @@ class PlayerService with HttpHelper {
     final json = mappingWithValidation(response);
 
     // convert json object to player detail model
-    return PlayerDetail.fromJSON(json['data']);
+    return PlayerData.fromJSON(json['data']);
   }
 }

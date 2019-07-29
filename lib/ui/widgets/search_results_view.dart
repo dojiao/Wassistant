@@ -166,10 +166,11 @@ class SearchResultsView extends StatelessWidget with DateHelper {
             Icons.keyboard_arrow_right,
             size: _textTheme.headline.fontSize,
           ),
-          onTap: () => Navigator.pushNamed(context, '/clanDetail',
-              arguments: ViewArguments(
-                clanId: _clan.clanId,
-              )),
+          onTap: () => Navigator.pushNamed(
+            context,
+            '/clanDetail',
+            arguments: ViewArguments(clanId: _clan.clanId),
+          ),
         ),
       ),
     );
