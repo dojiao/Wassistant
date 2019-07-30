@@ -52,13 +52,6 @@ class PlayerData {
     updatedAt = json['updated_at'];
     statistics = Statistics.fromJSON(json['statistics']);
   }
-
-  /// Mapping player model to JSON
-  Map<String, dynamic> toJson() => {
-        'nickname': nickname,
-        'account_id': accountId,
-        'created_at': createdAt,
-      };
 }
 
 /// Player statistics

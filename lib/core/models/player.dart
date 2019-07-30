@@ -11,10 +11,4 @@ class Player {
     nickname = json['nickname'];
     accountId = json['account_id'];
   }
-
-  /// Mapping player model to JSON
-  Map<String, dynamic> toJson() => {
-        'nickname': nickname,
-        'account_id': accountId,
-      };
 }

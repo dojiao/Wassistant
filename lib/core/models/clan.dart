@@ -27,13 +27,4 @@ class Clan with DateHelper {
     name = json['name'];
     tag = json['tag'];
   }
-
-  /// Mapping clan model to JSON
-  Map<String, dynamic> toJson() => {
-        'clan_id': clanId,
-        'created_at': createdAt,
-        'account_id': membersCount,
-        'name': name,
-        'tag': tag,
-      };
 }

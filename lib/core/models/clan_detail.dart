@@ -50,6 +50,9 @@ class ClanDetail with DateHelper {
   /// Time when clan details were updated
   DateTime updatedAt;
 
+  /// Clan members
+  List<Member> members;
+
   /// Serializing JSON inside clan detail model
   ClanDetail.fromJSON(Map<String, dynamic> json) {
     clanId = json['clan_id'];
@@ -70,14 +73,35 @@ class ClanDetail with DateHelper {
     oldTag = json['old_tag'];
     renamedAt = dateTimeFromSeconds(json['renamed_at']);
     tag = json['tag'];
-  }
 
-  /// Mapping clan detail model to JSON
-  Map<String, dynamic> toJson() => {
-        'clan_id': clanId,
-        'created_at': createdAt,
-        'account_id': membersCount,
-        'name': name,
-        'tag': tag,
-      };
+    final members = <Member>[];
+    final List<dynamic> parsedList = json['members'];
+    for (final member in parsedList) {
+      members.add(Member.fromJSON(member));
+    }
+    this.members = members;
+  }
+}
+
+/// Member model
+class Member with DateHelper {
+  /// User id
+  int accountId;
+
+  /// Player name
+  String accountName;
+
+  /// Date when player joined clan
+  DateTime joinedAt;
+
+  /// Technical position name
+  String role;
+
+  ///  Serializing JSON inside member model
+  Member.fromJSON(Map<String, dynamic> json) {
+    accountId = json['account_id'];
+    accountName = json['account_name'];
+    joinedAt = dateTimeFromSeconds(json['joined_at']);
+    role = json['role'];
+  }
 }
