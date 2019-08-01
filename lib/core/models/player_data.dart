@@ -1,5 +1,5 @@
 /// Player detail model
-class PlayerDetail {
+class PlayerData {
   /// User id
   int accountId;
 
@@ -38,7 +38,7 @@ class PlayerDetail {
   Statistics statistics;
 
   /// Serializing JSON inside player detail model
-  PlayerDetail.fromJSON(Map<String, dynamic> json) {
+  PlayerData.fromJSON(Map<String, dynamic> json) {
     accountId = json['account_id'];
     createdAt = json['created_at'];
     hiddenProfile = json['hidden_profile'];
@@ -52,13 +52,6 @@ class PlayerDetail {
     updatedAt = json['updated_at'];
     statistics = Statistics.fromJSON(json['statistics']);
   }
-
-  /// Mapping player model to JSON
-  Map<String, dynamic> toJson() => {
-        'nickname': nickname,
-        'account_id': accountId,
-        'created_at': createdAt,
-      };
 }
 
 /// Player statistics

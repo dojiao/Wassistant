@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/mixins/date_helper.dart';
 import '../../core/view_models/search_model.dart';
+import '../router.dart';
 
 /// Search results view
 class SearchResultsView extends StatelessWidget with DateHelper {
@@ -53,7 +54,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
     );
   }
 
-  /// Returns a list of tabs
+  /// Returns a list of widget that inside the tabs
   List<ListView> _buildTabs(BuildContext context) => [
         ListView.builder(
           shrinkWrap: true,
@@ -74,6 +75,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
   /// returns card widget to display the player info
   Card _buildPlayerCard(BuildContext context, int index) {
     final _textTheme = Theme.of(context).textTheme;
+    final _player = _search.players[index];
 
     return Card(
       elevation: 8.0,
@@ -94,14 +96,14 @@ class SearchResultsView extends StatelessWidget with DateHelper {
             child: Icon(Icons.person),
           ),
           title: Text(
-            _search.players[index].nickname,
+            _player.nickname,
             style: _textTheme.subhead.copyWith(fontWeight: FontWeight.w600),
           ),
           trailing: Icon(
             Icons.keyboard_arrow_right,
             size: _textTheme.headline.fontSize,
           ),
-          onTap: () => Navigator.pushNamed(context, 'profile'),
+          onTap: () => Navigator.pushNamed(context, '/playerData'),
         ),
       ),
     );
@@ -110,6 +112,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
   /// returns a card widget to display the clan info
   Card _buildClanCard(BuildContext context, int index) {
     final _textTheme = Theme.of(context).textTheme;
+    final _clan = _search.clans[index];
 
     return Card(
       elevation: 8.0,
@@ -128,7 +131,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
                 right: BorderSide(width: 1.0, color: Colors.black26),
               ),
             ),
-            child: Icon(Icons.group),
+            child: Icon(Icons.flag),
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,7 +140,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
                 flex: 4,
                 child: Container(
                   child: Text(
-                    _search.clans[index].tag,
+                    _clan.tag,
                     style: _textTheme.subhead.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -147,7 +150,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
               Flexible(
                 flex: 2,
                 child: Text(
-                  formatDateTime(_search.clans[index].createdAt),
+                  formatDateTime(_clan.createdAt),
                   textAlign: TextAlign.end,
                   style: _textTheme.caption.copyWith(
                     color: Colors.black38,
@@ -157,13 +160,17 @@ class SearchResultsView extends StatelessWidget with DateHelper {
             ],
           ),
           subtitle: Container(
-            child: Text(_search.clans[index].name),
+            child: Text(_clan.name),
           ),
           trailing: Icon(
             Icons.keyboard_arrow_right,
             size: _textTheme.headline.fontSize,
           ),
-          onTap: () => Navigator.pushNamed(context, 'profile'),
+          onTap: () => Navigator.pushNamed(
+            context,
+            '/clanDetail',
+            arguments: ViewArguments(clanId: _clan.clanId),
+          ),
         ),
       ),
     );

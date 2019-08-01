@@ -14,7 +14,7 @@ mixin HttpHelper {
     // validate the status field in response
     if (json['status'] != 'ok') {
       throw StatusCodeException(
-        json['error']['code'] as int,
+        json['error']['code'],
         json['error']['message'],
       );
     }

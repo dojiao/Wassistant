@@ -1,6 +1,6 @@
 import '../mixins/date_helper.dart';
 
-/// Player model
+/// Clan model
 class Clan with DateHelper {
   /// Clan id
   int clanId;
@@ -18,15 +18,6 @@ class Clan with DateHelper {
   String tag;
 
   /// Constructor
-  Clan(
-    this.clanId,
-    this.createdAt,
-    this.membersCount,
-    this.name,
-    this.tag,
-  );
-
-  /// Constructor
 
   /// Serializing JSON inside clan model
   Clan.fromJSON(Map<String, dynamic> json) {
@@ -36,13 +27,4 @@ class Clan with DateHelper {
     name = json['name'];
     tag = json['tag'];
   }
-
-  /// Mapping clan model to JSON
-  Map<String, dynamic> toJson() => {
-        'clan_id': clanId,
-        'created_at': createdAt,
-        'account_id': membersCount,
-        'name': name,
-        'tag': tag,
-      };
 }

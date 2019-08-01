@@ -4,5 +4,5 @@ class RoutePaths {
   static const home = '/';
 
   /// Path of profile view
-  static const profile = 'profile';
+  static const clanDetail = '/clanDetail';
 }
