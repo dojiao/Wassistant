@@ -35,7 +35,7 @@ packages:
       name: connectivity
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3+6"
+    version: "0.4.3+7"
   cookie_jar:
     dependency: transitive
     description:
@@ -73,7 +73,7 @@ packages:
       name: get_it
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3+2"
+    version: "2.0.1"
   intl:
     dependency: "direct main"
     description:
@@ -115,7 +115,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0+1"
+    version: "3.1.0"
   quiver:
     dependency: transitive
     description:
