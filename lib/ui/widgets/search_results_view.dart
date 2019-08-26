@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wassistant/core/models/clan.dart';
+import 'package:wassistant/core/models/player.dart';
 
 import '../../core/mixins/date_helper.dart';
 import '../../core/view_models/search_model.dart';
@@ -6,11 +8,12 @@ import '../router.dart';
 
 /// Search results view
 class SearchResultsView extends StatelessWidget with DateHelper {
-  final SearchModel _search;
+  final SearchModel _results;
+
+  /// Constructor of search results view
+  SearchResultsView(this._results);
 
   /// Returns a widget to display the search results
-  SearchResultsView(this._search);
-
   @override
   Widget build(BuildContext context) {
     final indicatorWeight = 2.0;
@@ -20,7 +23,6 @@ class SearchResultsView extends StatelessWidget with DateHelper {
           color: Colors.blue,
           fontWeight: FontWeight.bold,
         );
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -58,24 +60,23 @@ class SearchResultsView extends StatelessWidget with DateHelper {
   List<ListView> _buildTabs(BuildContext context) => [
         ListView.builder(
           shrinkWrap: true,
-          itemCount: _search.players.length,
+          itemCount: _results.players.length,
           itemBuilder: (context, index) => Container(
-            child: _buildPlayerCard(context, index),
+            child: _buildPlayerCard(context, index, _results.players[index]),
           ),
         ),
         ListView.builder(
           shrinkWrap: true,
-          itemCount: _search.clans.length,
+          itemCount: _results.clans.length,
           itemBuilder: (context, index) => Container(
-            child: _buildClanCard(context, index),
+            child: _buildClanCard(context, index, _results.clans[index]),
           ),
         ),
       ];
 
   /// returns card widget to display the player info
-  Card _buildPlayerCard(BuildContext context, int index) {
+  Card _buildPlayerCard(BuildContext context, int index, Player player) {
     final _textTheme = Theme.of(context).textTheme;
-    final _player = _search.players[index];
 
     return Card(
       elevation: 8.0,
@@ -96,7 +97,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
             child: Icon(Icons.person),
           ),
           title: Text(
-            _player.nickname,
+            player.nickname,
             style: _textTheme.subhead.copyWith(fontWeight: FontWeight.w600),
           ),
           trailing: Icon(
@@ -110,9 +111,8 @@ class SearchResultsView extends StatelessWidget with DateHelper {
   }
 
   /// returns a card widget to display the clan info
-  Card _buildClanCard(BuildContext context, int index) {
+  Card _buildClanCard(BuildContext context, int index, Clan clan) {
     final _textTheme = Theme.of(context).textTheme;
-    final _clan = _search.clans[index];
 
     return Card(
       elevation: 8.0,
@@ -140,7 +140,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
                 flex: 4,
                 child: Container(
                   child: Text(
-                    _clan.tag,
+                    clan.tag,
                     style: _textTheme.subhead.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -150,7 +150,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
               Flexible(
                 flex: 2,
                 child: Text(
-                  formatDateTime(_clan.createdAt),
+                  formatDateTime(clan.createdAt),
                   textAlign: TextAlign.end,
                   style: _textTheme.caption.copyWith(
                     color: Colors.black38,
@@ -160,7 +160,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
             ],
           ),
           subtitle: Container(
-            child: Text(_clan.name),
+            child: Text(clan.name),
           ),
           trailing: Icon(
             Icons.keyboard_arrow_right,
@@ -169,7 +169,7 @@ class SearchResultsView extends StatelessWidget with DateHelper {
           onTap: () => Navigator.pushNamed(
             context,
             '/clanDetail',
-            arguments: ViewArguments(clanId: _clan.clanId),
+            arguments: ViewArguments(clanId: clan.clanId),
           ),
         ),
       ),

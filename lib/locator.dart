@@ -5,7 +5,7 @@ import 'core/services/player_service.dart';
 import 'core/view_models/search_model.dart';
 
 /// Instance of locator
-GetIt locator = GetIt();
+GetIt locator = GetIt.instance;
 
 /// Setup locator
 void setupLocator() {
