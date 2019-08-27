@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wassistant/ui/views/home_view/pages/home_page.dart';
 
 import '../core/constants/route_paths.dart';
 import 'views/clan_detail_view/index.dart';
-import 'views/home_view/index.dart';
 
 /// Routing class
 class Router {
@@ -12,7 +12,7 @@ class Router {
 
     switch (settings.name) {
       case RoutePaths.home:
-        return MaterialPageRoute(builder: (_) => HomeView());
+        return MaterialPageRoute(builder: (_) => HomePage());
       case RoutePaths.clanDetail:
         return MaterialPageRoute(builder: (_) => ClanDetailView(args.clanId));
       default:

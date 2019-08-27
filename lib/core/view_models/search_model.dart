@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 import '../../locator.dart';
 import '../models/clan.dart';
 import '../models/player.dart';
@@ -7,7 +5,9 @@ import '../services/clan_service.dart';
 import '../services/player_service.dart';
 
 /// A layer contains players/clans searching logic
-class SearchModel extends ChangeNotifier {
+/// We already have FutureBuilder so provider is useless.
+/// Just use snapshot to access search results.
+class SearchModel {
   /// List of clans
   var _clans = <Clan>[];
 
@@ -43,8 +43,8 @@ class SearchModel extends ChangeNotifier {
         _clans = obj;
       }
     }
-
+    return this;
     // send notice
-    notifyListeners();
+    //notifyListeners();
   }
 }

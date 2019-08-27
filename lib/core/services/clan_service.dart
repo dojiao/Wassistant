@@ -23,6 +23,10 @@ class ClanService with HttpHelper {
     );
 
     // convert response to json object with validations
+    // TODO: Fix the bug caused by too short search length.
+    // Try searching just one letter then there will be
+    // an uncatched exception.
+    // Anywhere using this method is waiting to be fixed.
     final json = mappingWithValidation(response);
 
     // loop and convert each item to clan model

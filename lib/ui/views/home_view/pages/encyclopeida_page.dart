@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// Settings page
-class SettingsPage extends StatelessWidget {
+class EncyclopediaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -11,13 +11,13 @@ class SettingsPage extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          title: Text('Settings'),
+          title: Text('Encyclopedia'),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Settings page',
+              'Encyclopedia page',
               style: Theme.of(context).textTheme.display1,
             ),
           ],
