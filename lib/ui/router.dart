@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wassistant/core/constants/route_paths.dart';
 import 'package:wassistant/ui/views/home_view/pages/home_page.dart';
 
-import '../core/constants/route_paths.dart';
 import 'views/clan_detail_view/index.dart';
 
 /// Routing class

@@ -1,8 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
-
-import '../enums/api_type.dart';
-import '../exceptions/http_exception.dart';
+import 'package:wassistant/core/enums/api_type.dart';
+import 'package:wassistant/core/exceptions/http_exception.dart';
 
 /// API wrapper class
 class ApiWrapper {

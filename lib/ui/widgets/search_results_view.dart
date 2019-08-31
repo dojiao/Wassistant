@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wassistant/core/mixins/date_helper.dart';
 import 'package:wassistant/core/models/clan.dart';
 import 'package:wassistant/core/models/player.dart';
-
-import '../../core/mixins/date_helper.dart';
-import '../../core/view_models/search_model.dart';
-import '../router.dart';
+import 'package:wassistant/core/view_models/search_model.dart';
+import 'package:wassistant/ui/router.dart';
 
 /// Search results view
 class SearchResultsView extends StatelessWidget with DateHelper {

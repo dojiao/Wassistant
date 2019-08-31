@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-
-import '../exceptions/http_exception.dart';
+import 'package:wassistant/core/exceptions/http_exception.dart';
 
 /// A mixin defined some helper methods are used to make HTTP requests
 mixin HttpHelper {

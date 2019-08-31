@@ -1,4 +1,4 @@
-import '../mixins/date_helper.dart';
+import 'package:wassistant/core/mixins/date_helper.dart';
 
 /// Clan detail model
 class ClanDetail with DateHelper {

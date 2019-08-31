@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wassistant/core/constants/storage_keys.dart';
+import 'package:wassistant/core/exceptions/http_exception.dart';
+import 'package:wassistant/core/view_models/search_model.dart';
 
-import '../../core/constants/storage_keys.dart';
-import '../../core/exceptions/http_exception.dart';
-import '../../core/view_models/search_model.dart';
 import 'search_results_view.dart';
 
 /// Floating action bar for searching and drawer

@@ -1,8 +1,8 @@
-import '../constants/keys.secret.dart';
-import '../enums/api_type.dart';
-import '../mixins/http_helper.dart';
-import '../models/player.dart';
-import '../models/player_data.dart';
+import 'package:wassistant/core/constants/keys.secret.dart';
+import 'package:wassistant/core/enums/api_type.dart';
+import 'package:wassistant/core/mixins/http_helper.dart';
+import 'package:wassistant/core/models/player.dart';
+import 'package:wassistant/core/models/player_data.dart';
 import 'api_wrapper.dart';
 
 /// Player service for networking requests

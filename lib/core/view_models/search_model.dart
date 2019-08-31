@@ -1,8 +1,8 @@
-import '../../locator.dart';
-import '../models/clan.dart';
-import '../models/player.dart';
-import '../services/clan_service.dart';
-import '../services/player_service.dart';
+import 'package:wassistant/core/models/clan.dart';
+import 'package:wassistant/core/models/player.dart';
+import 'package:wassistant/core/services/clan_service.dart';
+import 'package:wassistant/core/services/player_service.dart';
+import 'package:wassistant/locator.dart';
 
 /// A layer contains players/clans searching logic
 /// We already have FutureBuilder so provider is useless.
